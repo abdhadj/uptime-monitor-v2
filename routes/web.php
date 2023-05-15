@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\EndpointController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,12 @@ Route::post('/sites', [SiteController::class, 'store']);
 Route::delete('/sites/{site}', [SiteController::class, 'destroy']);
 Route::post('/sites/{site}/notifications/emails', [SiteController::class, 'SiteNotificationEmail']);
 Route::delete('/sites/{site}/notifications/emails', [SiteController::class, 'SiteNotificationEmailDestroy']);
+
+Route::post('/sites/{site}/endpoints', [EndpointController::class, 'store']);
+Route::get('/endpoints/{endpoint}', [EndpointController::class, 'index']);
+Route::delete('/endpoints/{endpoint}', [EndpointController::class, 'destroy']);
+Route::patch('/endpoints/{endpoint}', [EndpointController::class, 'update']);
+
 
 
 

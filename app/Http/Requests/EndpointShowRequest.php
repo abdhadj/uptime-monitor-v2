@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SiteStoreRequest extends FormRequest
+class EndpointShowRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class SiteStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('show', $this->endpoint);
     }
 
     /**
@@ -24,7 +24,7 @@ class SiteStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'domain' => ['required', 'url']
+            //
         ];
     }
 }
