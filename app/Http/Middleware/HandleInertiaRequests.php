@@ -39,6 +39,8 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            // 'endpointFrequencies' => EndpointFrequencyResource::collection(EndpointFrequency::cases()),
+            // 'sites' => $request->user() ? SiteResource::collection($request->user()->sites()->latest()->get()) : null,
         ]);
     }
 }
