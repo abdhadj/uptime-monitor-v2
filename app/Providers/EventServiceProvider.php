@@ -2,10 +2,21 @@
 
 namespace App\Providers;
 
+use App\Events\EndpointRecovered;
+use App\Events\EndpointWentDown;
+use App\Listeners\SendDownEmailNotifications;
+use App\Listeners\SendRecoveredEmailNotifications;
+use App\Models\Check;
+use App\Models\Endpoint;
+use App\Models\Site;
+use App\Observers\CheckObserver;
+use App\Observers\EndpointObserver;
+use App\Observers\SiteObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +29,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        EndpointWentDown::class => [
+            SendDownEmailNotifications::class
+        ],
+
+        EndpointRecovered::class => [
+            SendRecoveredEmailNotifications::class
+        ],
     ];
 
     /**
@@ -25,7 +44,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Site::observe(SiteObserver::class);
+        Endpoint::observe(EndpointObserver::class);
+        Check::observe(CheckObserver::class);
     }
 
     /**
