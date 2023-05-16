@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class Check extends Model
 {
     use HasFactory;
@@ -35,5 +34,4 @@ class Check extends Model
     {
         return $this->endpoint->checks()->orderBy('id', 'desc')->where('id', '<', $this->id)->first();
     }
-
 }

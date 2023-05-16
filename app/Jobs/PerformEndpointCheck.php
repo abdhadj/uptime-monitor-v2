@@ -12,13 +12,14 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 
-
-class PerformEndpointCheck implements ShouldQueue
+class PerformEndpointCheck implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
+     *
+     * @return void
      */
     public function __construct(public Endpoint $endpoint)
     {
@@ -30,11 +31,12 @@ class PerformEndpointCheck implements ShouldQueue
         return 'endpoint_' . $this->endpoint->id;
     }
 
-
     /**
      * Execute the job.
+     *
+     * @return void
      */
-    public function handle(): void
+    public function handle()
     {
         try {
             $response = Http::get($this->endpoint->url());

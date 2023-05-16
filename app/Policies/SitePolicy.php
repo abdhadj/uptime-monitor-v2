@@ -4,10 +4,12 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Site;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 
 class SitePolicy
 {
+    use HandlesAuthorization;
     /**
      * Create a new policy instance.
      */
